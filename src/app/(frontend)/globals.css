@@ -3,6 +3,12 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --brand-blue: #3F20B9;
+  --brand-orange: #EC5934;
+  --brand-purple: #AF92FF;
+  --brand-light-blue: #B1C8FF;
+  --brand-neutral: #EDEDED;
 }
 
 @theme inline {
@@ -10,6 +16,12 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-light-blue: var(--brand-light-blue);
+  --color-brand-neutral: var(--brand-neutral);
 }
 
 @media (prefers-color-scheme: dark) {
