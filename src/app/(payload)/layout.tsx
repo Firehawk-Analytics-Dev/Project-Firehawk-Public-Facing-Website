@@ -14,7 +14,11 @@ const Layout = ({ children }: Args) => (
     <RootLayout
         config={config}
         importMap={importMap}
-        serverFunction={handleServerFunctions}
+        serverFunction={(args: any) => handleServerFunctions({ // eslint-disable-line @typescript-eslint/no-explicit-any
+            ...args,
+            config,
+            importMap,
+        })}
     >
         {children}
     </RootLayout>
