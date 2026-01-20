@@ -19,7 +19,7 @@ const Hero = () => {
                             Explore Our Solutions
                         </button>
                         <button className="px-8 py-4 bg-white text-brand-blue border-2 border-brand-blue rounded-xl font-bold text-lg hover:bg-brand-neutral/30 transition-all">
-                            Schedule a Demo
+                            Schedule a Demo With Maurya
                         </button>
                     </div>
                 </div>
