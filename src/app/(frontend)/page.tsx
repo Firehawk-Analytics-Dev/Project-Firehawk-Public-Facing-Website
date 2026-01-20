@@ -5,31 +5,22 @@ import Hero from "@/components/Hero";
 import ServicesList from "@/components/ServicesList";
 
 export default async function Home() {
+  let services: unknown[] = [];
+  let error: { message?: string } | null = null;
+
   try {
     const payload = await getPayload({ config })
-    const { docs: services } = await payload.find({
+    const result = await payload.find({
       collection: 'services',
       limit: 10,
     })
+    services = result.docs;
+  } catch (err: unknown) {
+    console.error("HOME PAGE ERROR:", err);
+    error = err as { message?: string };
+  }
 
-    return (
-      <div className="min-h-screen bg-white">
-        <Navbar />
-        <main>
-          <Hero />
-          <ServicesList services={services as any} />
-        </main>
-        <footer className="bg-brand-blue text-white py-12">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <p className="text-brand-light-blue/60">
-              &copy; {new Date().getFullYear()} Firehawk Analytics. All rights reserved.
-            </p>
-          </div>
-        </footer>
-      </div>
-    );
-  } catch (error: any) {
-    console.error("HOME PAGE ERROR:", error);
+  if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-red-50 p-8">
         <div className="max-w-xl w-full bg-white p-8 rounded-xl shadow-2xl border border-red-200">
@@ -43,4 +34,21 @@ export default async function Home() {
       </div>
     );
   }
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Navbar />
+      <main>
+        <Hero />
+        <ServicesList services={services as { id: string; title: string; description: string; slug: string; icon?: string }[]} />
+      </main>
+      <footer className="bg-brand-blue text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-brand-light-blue/60">
+            &copy; {new Date().getFullYear()} Firehawk Analytics. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
 }

@@ -70,8 +70,8 @@ export default buildConfig({
         seoPlugin({
             collections: ['services', 'blog'],
             uploadsCollection: 'media',
-            generateTitle: ({ doc }) => `Firehawk Analytics — ${(doc as any)?.title?.value}`,
-            generateDescription: ({ doc }) => (doc as any)?.description?.value,
+            generateTitle: ({ doc }) => `Firehawk Analytics — ${(doc as { title?: { value?: string } })?.title?.value || ''}`,
+            generateDescription: ({ doc }) => (doc as { description?: { value?: string } })?.description?.value || '',
         }),
     ],
     email: resendAdapter({
