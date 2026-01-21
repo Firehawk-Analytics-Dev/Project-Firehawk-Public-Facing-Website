@@ -21,6 +21,9 @@ const Hero = () => {
                         <button className="px-8 py-4 bg-white text-brand-blue border-2 border-brand-blue rounded-xl font-bold text-lg hover:bg-brand-neutral/30 transition-all">
                             Schedule a Demo With Maurya
                         </button>
+                        <button className="px-8 py-4 bg-brand-blue text-white rounded-xl font-bold text-lg hover:bg-brand-blue/90 transition-all shadow-xl shadow-brand-blue/20">
+                            Tony has made his change
+                        </button>
                     </div>
                 </div>
             </div>
