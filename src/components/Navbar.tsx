@@ -32,6 +32,9 @@ const Navbar = () => {
                         <Link href="#contact" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
                             Contact
                         </Link>
+                        <Link href="/allens-page" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
+                            Allen’s Page
+                        </Link>
                     </div>
                     <div className="flex items-center">
                         <button className="bg-brand-blue text-white px-6 py-2.5 rounded-full font-semibold hover:bg-brand-orange transition-all duration-300 shadow-lg hover:shadow-brand-orange/20">
