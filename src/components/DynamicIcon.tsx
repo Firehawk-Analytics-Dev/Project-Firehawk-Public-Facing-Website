@@ -7,7 +7,7 @@ interface DynamicIconProps extends LucideProps {
 }
 
 const DynamicIcon = ({ name, ...props }: DynamicIconProps) => {
-    const IconComponent = (LucideIcons as any)[name];
+    const IconComponent = LucideIcons[name as keyof typeof LucideIcons] as LucideIcons.LucideIcon;
 
     if (!IconComponent) {
         // Fallback to a default icon if the name isn't found
