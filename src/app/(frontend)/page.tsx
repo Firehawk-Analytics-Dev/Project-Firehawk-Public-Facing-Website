@@ -3,6 +3,7 @@ import config from '@/payload.config'
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ServicesList from "@/components/ServicesList";
+<<<<<<< HEAD
 import ContactForm from "@/components/ContactForm";
 import Link from 'next/link';
 import { BarChart3, Building2, Eye, Ruler, Rocket, ShieldCheck, Users, Network, Lock, Zap } from 'lucide-react';
@@ -15,12 +16,25 @@ export default async function Home() {
   try {
     const payload = await getPayload({ config })
     console.log("HOME PAGE: Payload initialized. Finding services...");
+=======
+
+export default async function Home() {
+  let services: unknown[] = [];
+  let error: { message?: string } | null = null;
+
+  try {
+    const payload = await getPayload({ config })
+>>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
     const result = await payload.find({
       collection: 'services',
       limit: 10,
     })
+<<<<<<< HEAD
     console.log("HOME PAGE: Services found:", result.docs.length);
     services = result.docs as unknown as { id: string; title: string; description: string; slug: string; icon?: string }[];
+=======
+    services = result.docs;
+>>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
   } catch (err: unknown) {
     console.error("HOME PAGE ERROR:", err);
     error = err as { message?: string };
@@ -46,6 +60,7 @@ export default async function Home() {
       <Navbar />
       <main>
         <Hero />
+<<<<<<< HEAD
 
         {/* Dual-Core Strategy */}
         <section id="strategy" className="py-24 bg-white">
@@ -274,6 +289,13 @@ export default async function Home() {
       <footer className="bg-brand-blue text-white py-12">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-brand-light-blue/40 font-medium">
+=======
+        <ServicesList services={services as { id: string; title: string; description: string; slug: string; icon?: string }[]} />
+      </main>
+      <footer className="bg-brand-blue text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-brand-light-blue/60">
+>>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
             &copy; {new Date().getFullYear()} Firehawk Analytics. All rights reserved.
           </p>
         </div>

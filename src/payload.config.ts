@@ -12,12 +12,15 @@ import { Users } from './collections/Users'
 import { Services } from './collections/Services'
 import { Blog } from './collections/Blog'
 import { Newsletters } from './collections/Newsletters'
+<<<<<<< HEAD
 import { Leads } from './collections/Leads'
 import { Organisations } from './collections/Organisations'
 import { Deals } from './collections/Deals'
 import { SocialMedia } from './collections/SocialMedia'
 import { authjsPlugin } from 'payload-authjs'
 import Google from 'next-auth/providers/google'
+=======
+>>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,10 +37,13 @@ export default buildConfig({
         Services,
         Blog,
         Newsletters,
+<<<<<<< HEAD
         Organisations,
         Leads,
         Deals,
         SocialMedia,
+=======
+>>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
         {
             slug: 'media',
             upload: true,
@@ -62,6 +68,7 @@ export default buildConfig({
     }),
     sharp,
     plugins: [
+<<<<<<< HEAD
         authjsPlugin({
             authjsConfig: {
                 providers: [
@@ -73,6 +80,8 @@ export default buildConfig({
                 secret: process.env.AUTH_SECRET || '',
             },
         }),
+=======
+>>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
         s3Storage({
             collections: {
                 media: true,
@@ -91,6 +100,7 @@ export default buildConfig({
         seoPlugin({
             collections: ['services', 'blog'],
             uploadsCollection: 'media',
+<<<<<<< HEAD
             generateTitle: ({ doc }) => {
                 const title = (doc as { title?: { value?: string } })?.title?.value
                 return `Firehawk Analytics — ${title || ''}`
@@ -99,6 +109,10 @@ export default buildConfig({
                 const desc = (doc as { description?: { value?: string } })?.description?.value
                 return desc || ''
             },
+=======
+            generateTitle: ({ doc }) => `Firehawk Analytics — ${(doc as { title?: { value?: string } })?.title?.value || ''}`,
+            generateDescription: ({ doc }) => (doc as { description?: { value?: string } })?.description?.value || '',
+>>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
         }),
     ],
     email: resendAdapter({
