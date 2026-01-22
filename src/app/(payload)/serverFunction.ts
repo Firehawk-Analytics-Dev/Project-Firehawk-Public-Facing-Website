@@ -3,8 +3,10 @@ import { handleServerFunctions as payloadHandleServerFunctions } from '@payloadc
 import config from '@/payload.config'
 import { importMap } from '@/payload-import-map'
 
-export const handleServerFunctions = async (args: Record<string, unknown>) => payloadHandleServerFunctions({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handleServerFunctions = async (args: any) => payloadHandleServerFunctions({
     ...args,
     config,
     importMap,
-})
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} as any)
