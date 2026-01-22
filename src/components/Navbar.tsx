@@ -19,23 +19,32 @@ const Navbar = () => {
                             />
                         </Link>
                     </div>
-                    <div className="hidden md:ml-6 md:flex md:space-x-8">
-                        <Link href="#services" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
+                    <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
+                        <Link href="#strategy" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-bold transition-colors">
+                            Strategy
+                        </Link>
+                        <Link href="#moat" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-bold transition-colors">
+                            The Moat
+                        </Link>
+                        <Link href="#services" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-bold transition-colors">
                             Services
                         </Link>
-                        <Link href="#about" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
-                            About
+                        <Link href="#process" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-bold transition-colors">
+                            Our Process
                         </Link>
-                        <Link href="#blog" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
+                        <Link href="#blog" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-bold transition-colors">
                             Blog
                         </Link>
-                        <Link href="#contact" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
-                            Contact
-                        </Link>
                     </div>
-                    <div className="flex items-center">
-                        <button className="bg-brand-blue text-white px-6 py-2.5 rounded-full font-semibold hover:bg-brand-orange transition-all duration-300 shadow-lg hover:shadow-brand-orange/20">
-                            Get Started
+                    <div className="flex items-center gap-4">
+                        <Link
+                            href="https://members.firehawkanalytics.com.au/login"
+                            className="hidden sm:block text-brand-blue font-bold text-sm hover:text-brand-orange transition-colors"
+                        >
+                            Sign In
+                        </Link>
+                        <button className="bg-brand-blue text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-brand-orange transition-all duration-300 shadow-lg hover:shadow-brand-orange/20">
+                            Build My App
                         </button>
                     </div>
                 </div>

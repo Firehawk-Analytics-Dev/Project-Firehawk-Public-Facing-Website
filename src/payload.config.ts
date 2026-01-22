@@ -12,6 +12,12 @@ import { Users } from './collections/Users'
 import { Services } from './collections/Services'
 import { Blog } from './collections/Blog'
 import { Newsletters } from './collections/Newsletters'
+import { Leads } from './collections/Leads'
+import { Organisations } from './collections/Organisations'
+import { Deals } from './collections/Deals'
+import { SocialMedia } from './collections/SocialMedia'
+import { authjsPlugin } from 'payload-authjs'
+import Google from 'next-auth/providers/google'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,6 +34,10 @@ export default buildConfig({
         Services,
         Blog,
         Newsletters,
+        Organisations,
+        Leads,
+        Deals,
+        SocialMedia,
         {
             slug: 'media',
             upload: true,
@@ -52,6 +62,17 @@ export default buildConfig({
     }),
     sharp,
     plugins: [
+        authjsPlugin({
+            authjsConfig: {
+                providers: [
+                    Google({
+                        clientId: process.env.AUTH_GOOGLE_ID || '',
+                        clientSecret: process.env.AUTH_GOOGLE_SECRET || '',
+                    }),
+                ],
+                secret: process.env.AUTH_SECRET || '',
+            },
+        }),
         s3Storage({
             collections: {
                 media: true,
@@ -70,8 +91,14 @@ export default buildConfig({
         seoPlugin({
             collections: ['services', 'blog'],
             uploadsCollection: 'media',
-            generateTitle: ({ doc }) => `Firehawk Analytics — ${(doc as { title?: { value?: string } })?.title?.value || ''}`,
-            generateDescription: ({ doc }) => (doc as { description?: { value?: string } })?.description?.value || '',
+            generateTitle: ({ doc }) => {
+                const title = (doc as { title?: { value?: string } })?.title?.value
+                return `Firehawk Analytics — ${title || ''}`
+            },
+            generateDescription: ({ doc }) => {
+                const desc = (doc as { description?: { value?: string } })?.description?.value
+                return desc || ''
+            },
         }),
     ],
     email: resendAdapter({
