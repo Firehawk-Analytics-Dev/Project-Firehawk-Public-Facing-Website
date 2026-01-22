@@ -14,13 +14,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-<<<<<<< HEAD
   --font-sans: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-=======
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
->>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
 
   --color-brand-blue: var(--brand-blue);
   --color-brand-orange: var(--brand-orange);
@@ -39,9 +34,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-<<<<<<< HEAD
   font-family: var(--font-outfit), var(--font-inter), sans-serif;
-=======
-  font-family: Arial, Helvetica, sans-serif;
->>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
 }

@@ -19,7 +19,6 @@ const Navbar = () => {
                             />
                         </Link>
                     </div>
-<<<<<<< HEAD
                     <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
                         <Link href="#strategy" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-bold transition-colors">
                             Strategy
@@ -46,25 +45,6 @@ const Navbar = () => {
                         </Link>
                         <button className="bg-brand-blue text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-brand-orange transition-all duration-300 shadow-lg hover:shadow-brand-orange/20">
                             Build My App
-=======
-                    <div className="hidden md:ml-6 md:flex md:space-x-8">
-                        <Link href="#services" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
-                            Services
-                        </Link>
-                        <Link href="#about" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
-                            About
-                        </Link>
-                        <Link href="#blog" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
-                            Blog
-                        </Link>
-                        <Link href="#contact" className="text-brand-blue hover:text-brand-orange px-3 py-2 text-sm font-medium transition-colors">
-                            Contact
-                        </Link>
-                    </div>
-                    <div className="flex items-center">
-                        <button className="bg-brand-blue text-white px-6 py-2.5 rounded-full font-semibold hover:bg-brand-orange transition-all duration-300 shadow-lg hover:shadow-brand-orange/20">
-                            Get Started
->>>>>>> 0a60537ae4406588589c9ad6e83de11ebfaf93c1
                         </button>
                     </div>
                 </div>
