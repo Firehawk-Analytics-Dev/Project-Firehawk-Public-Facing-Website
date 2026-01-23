@@ -18,6 +18,8 @@ import { Deals } from './collections/Deals'
 import { SocialMedia } from './collections/SocialMedia'
 import { authjsPlugin } from 'payload-authjs'
 import { authConfig } from './auth.config'
+// Unused icon imports removed to fix linting errors
+
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,6 +29,16 @@ export default buildConfig({
         user: 'users',
         importMap: {
             baseDir: path.resolve(dirname),
+        },
+        components: {
+            header: [
+                {
+                    path: '/components/admin/AdminHeader#AdminHeader',
+                },
+            ],
+        },
+        meta: {
+            titleSuffix: '- Firehawk Analytics',
         },
     },
     routes: {
@@ -44,12 +56,35 @@ export default buildConfig({
         SocialMedia,
         {
             slug: 'media',
-            upload: true,
+            upload: {
+                imageSizes: [
+                    {
+                        name: 'avatar',
+                        width: 200,
+                        height: 200,
+                        position: 'centre',
+                    },
+                    {
+                        name: 'thumbnail',
+                        width: 50,
+                        height: 50,
+                        position: 'centre',
+                    },
+                ],
+                adminThumbnail: 'thumbnail',
+            },
+            admin: {
+                group: 'Content',
+            },
             fields: [
                 {
                     name: 'alt',
                     type: 'text',
                     required: true,
+                    admin: {
+                        description: 'A descriptive alt text for accessibility and SEO.',
+                        placeholder: 'e.g., Firehawk Analytics Team Meeting',
+                    },
                 },
             ],
         },

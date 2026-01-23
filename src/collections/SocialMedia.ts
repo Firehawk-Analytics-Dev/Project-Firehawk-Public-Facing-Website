@@ -7,11 +7,18 @@ export const SocialMedia: CollectionConfig = {
         defaultColumns: ['platform', 'scheduledDate', 'posted'],
         group: 'Marketing',
     },
+    labels: {
+        singular: 'Social Post',
+        plural: 'Social Posts',
+    },
     fields: [
         {
             name: 'platform',
             type: 'select',
             required: true,
+            admin: {
+                description: 'Choose the social network for this post.',
+            },
             options: [
                 { label: 'LinkedIn', value: 'linkedin' },
                 { label: 'X (Twitter)', value: 'x' },
@@ -23,11 +30,18 @@ export const SocialMedia: CollectionConfig = {
             name: 'content',
             type: 'textarea',
             required: true,
+            admin: {
+                placeholder: 'Write your post content here...',
+                description: 'The text that will be posted to the selected platform.',
+            },
         },
         {
             name: 'image',
             type: 'relationship',
             relationTo: 'media',
+            admin: {
+                description: 'Attach a visual asset to this post.',
+            },
         },
         {
             type: 'row',
@@ -36,6 +50,7 @@ export const SocialMedia: CollectionConfig = {
                     name: 'scheduledDate',
                     type: 'date',
                     admin: {
+                        description: 'When should this post go live?',
                         date: {
                             pickerAppearance: 'dayAndTime',
                         },
@@ -45,6 +60,9 @@ export const SocialMedia: CollectionConfig = {
                     name: 'posted',
                     type: 'checkbox',
                     defaultValue: false,
+                    admin: {
+                        description: 'Indicates if this post has been successfully shared.',
+                    },
                 },
             ],
         },
