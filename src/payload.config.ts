@@ -17,7 +17,7 @@ import { Organisations } from './collections/Organisations'
 import { Deals } from './collections/Deals'
 import { SocialMedia } from './collections/SocialMedia'
 import { authjsPlugin } from 'payload-authjs'
-import Google from 'next-auth/providers/google'
+import { authConfig } from './auth.config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,6 +28,10 @@ export default buildConfig({
         importMap: {
             baseDir: path.resolve(dirname),
         },
+    },
+    routes: {
+        admin: '/admin',
+        api: '/api/payload',
     },
     collections: [
         Users,
@@ -63,15 +67,7 @@ export default buildConfig({
     sharp,
     plugins: [
         authjsPlugin({
-            authjsConfig: {
-                providers: [
-                    Google({
-                        clientId: process.env.AUTH_GOOGLE_ID || '',
-                        clientSecret: process.env.AUTH_GOOGLE_SECRET || '',
-                    }),
-                ],
-                secret: process.env.AUTH_SECRET || '',
-            },
+            authjsConfig: authConfig,
         }),
         s3Storage({
             collections: {
@@ -92,12 +88,12 @@ export default buildConfig({
             collections: ['services', 'blog'],
             uploadsCollection: 'media',
             generateTitle: ({ doc }) => {
-                const title = (doc as { title?: { value?: string } })?.title?.value
-                return `Firehawk Analytics — ${title || ''}`
+                const title = doc?.title?.value || doc?.title || ''
+                return `Firehawk Analytics — ${title}`
             },
             generateDescription: ({ doc }) => {
-                const desc = (doc as { description?: { value?: string } })?.description?.value
-                return desc || ''
+                const desc = doc?.description?.value || doc?.description || ''
+                return desc
             },
         }),
     ],

@@ -3,6 +3,7 @@ import { RootLayout } from '@payloadcms/next/layouts'
 import { handleServerFunctions } from './serverFunction'
 import config from '@/payload.config'
 import { importMap } from './admin/importMap'
+import '@payloadcms/next/css'
 
 import './custom.scss'
 

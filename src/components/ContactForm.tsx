@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { createLead } from '@/app/(frontend)/actions';
 
 const ContactForm = () => {
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -9,10 +10,25 @@ const ContactForm = () => {
         e.preventDefault();
         setStatus('loading');
 
-        // Simulate server action / API call
-        setTimeout(() => {
-            setStatus('success');
-        }, 1500);
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            name: formData.get('name') as string,
+            email: formData.get('email') as string,
+            interest: formData.get('interest') as string,
+            message: formData.get('message') as string,
+        };
+
+        try {
+            const result = await createLead(data);
+            if (result.success) {
+                setStatus('success');
+            } else {
+                setStatus('error');
+            }
+        } catch (err) {
+            console.error(err);
+            setStatus('error');
+        }
     };
 
     if (status === 'success') {
@@ -70,6 +86,7 @@ const ContactForm = () => {
                                     <input
                                         type="text"
                                         id="name"
+                                        name="name"
                                         required
                                         className="w-full px-5 py-4 bg-white border border-brand-neutral rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all"
                                         placeholder="Enter your name"
@@ -80,6 +97,7 @@ const ContactForm = () => {
                                     <input
                                         type="email"
                                         id="email"
+                                        name="email"
                                         required
                                         className="w-full px-5 py-4 bg-white border border-brand-neutral rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all"
                                         placeholder="name@company.com"
@@ -91,6 +109,7 @@ const ContactForm = () => {
                                 <label htmlFor="interest" className="block text-sm font-bold text-brand-blue mb-2">What are you interested in?</label>
                                 <select
                                     id="interest"
+                                    name="interest"
                                     className="w-full px-5 py-4 bg-white border border-brand-neutral rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all"
                                 >
                                     <option>Intelligence as a Service (Membership)</option>
@@ -104,6 +123,7 @@ const ContactForm = () => {
                                 <label htmlFor="message" className="block text-sm font-bold text-brand-blue mb-2">Tell us about your project</label>
                                 <textarea
                                     id="message"
+                                    name="message"
                                     rows={4}
                                     required
                                     className="w-full px-5 py-4 bg-white border border-brand-neutral rounded-xl focus:ring-2 focus:ring-brand-blue focus:border-transparent outline-none transition-all"
@@ -118,6 +138,11 @@ const ContactForm = () => {
                             >
                                 {status === 'loading' ? 'Processing...' : 'Secure My Consultation'}
                             </button>
+                            {status === 'error' && (
+                                <p className="text-red-500 text-center font-medium">
+                                    Something went wrong. Please try again or email us directly.
+                                </p>
+                            )}
                         </form>
                     </div>
                 </div>
