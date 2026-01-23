@@ -9,22 +9,44 @@ import { BarChart3, Building2, Eye, Ruler, Rocket, ShieldCheck, Users, Network, 
 
 export default async function Home() {
   let services: { id: string; title: string; description: string; slug: string; icon?: string }[] = [];
+  let blogPosts: { id: string; title: string; slug: string; publishedDate: string; content: unknown; featuredImage?: { url?: string; alt?: string } }[] = [];
   let error: { message?: string } | null = null;
 
   console.log("HOME PAGE: Initializing Payload...");
   try {
     const payload = await getPayload({ config })
-    console.log("HOME PAGE: Payload initialized. Finding services...");
-    const result = await payload.find({
+
+    // Fetch Services
+    console.log("HOME PAGE: Fetching services...");
+    const servicesResult = await payload.find({
       collection: 'services',
       limit: 10,
     })
-    console.log("HOME PAGE: Services found:", result.docs.length);
-    services = result.docs as unknown as { id: string; title: string; description: string; slug: string; icon?: string }[];
+    services = servicesResult.docs as unknown as { id: string; title: string; description: string; slug: string; icon?: string }[];
+
+    // Fetch Latest Blog Posts (3)
+    console.log("HOME PAGE: Fetching blog posts...");
+    const blogResult = await payload.find({
+      collection: 'blog',
+      limit: 3,
+      sort: '-publishedDate',
+      depth: 1, // To get featuredImage and author details
+    })
+    blogPosts = blogResult.docs as unknown as { id: string; title: string; slug: string; publishedDate: string; content: unknown; featuredImage?: { url?: string; alt?: string } }[];
+
   } catch (err: unknown) {
     console.error("HOME PAGE ERROR:", err);
     error = err as { message?: string };
   }
+
+  // Date formatter for blog posts
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-AU', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
 
   if (error) {
     return (
@@ -223,43 +245,40 @@ export default async function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* This would ideally fetch from the 'blog' collection */}
-              {[
-                {
-                  title: "Defensibility in the Age of AI: Why Custom Architecture is Non-Negotiable",
-                  excerpt: "As algorithm commoditization accelerates, the only real protection is the proprietary data flow you own.",
-                  date: "Jan 15, 2026",
-                  slug: "defensibility-ai-architecture"
-                },
-                {
-                  title: "Hidden Margins: Finding Revenue in the Friction of Legacy Systems",
-                  excerpt: "How we identified a 14% margin increase for a logistics partner through simple stakeholder automation.",
-                  date: "Jan 10, 2026",
-                  slug: "hidden-margins-legacy-transformation"
-                },
-                {
-                  title: "The Zero-Data Principle: Securing Your Enterprise Value",
-                  excerpt: "Why the data you don't collect is just as important as the data you do when building for the long term.",
-                  date: "Jan 05, 2026",
-                  slug: "zero-data-principle"
-                }
-              ].map((post, i) => (
-                <div key={i} className="group flex flex-col h-full bg-white rounded-3xl border border-brand-neutral overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-1">
-                  <div className="p-8 flex flex-col flex-grow">
-                    <div className="text-brand-orange font-bold text-sm mb-4">{post.date}</div>
-                    <h4 className="text-2xl font-bold text-brand-blue mb-4 group-hover:text-brand-orange transition-colors">
-                      {post.title}
-                    </h4>
-                    <p className="text-gray-600 mb-8 flex-grow leading-relaxed">
-                      {post.excerpt}
-                    </p>
-                    <Link href={`/blog/${post.slug}`} className="text-brand-blue font-bold flex items-center gap-2 group/link">
-                      Read Analysis
-                      <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                    </Link>
-                  </div>
+              {blogPosts.length > 0 ? (
+                blogPosts.map((post, i) => (
+                  <article key={post.id} className="group flex flex-col h-full bg-white rounded-3xl border border-brand-neutral overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-1">
+                    {post.featuredImage?.url && (
+                      <div className="aspect-video relative overflow-hidden">
+                        <img
+                          src={post.featuredImage.url}
+                          alt={post.featuredImage.alt || post.title}
+                          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    )}
+                    <div className="p-8 flex flex-col flex-grow">
+                      <time className="text-brand-orange font-bold text-sm mb-4" dateTime={post.publishedDate}>
+                        {formatDate(post.publishedDate)}
+                      </time>
+                      <h4 className="text-2xl font-bold text-brand-blue mb-4 group-hover:text-brand-orange transition-colors line-clamp-2">
+                        {post.title}
+                      </h4>
+                      {/* We'll add a snippet or excerpt here later if needed */}
+                      <div className="mt-auto">
+                        <Link href={`/blog/${post.slug}`} className="text-brand-blue font-bold flex items-center gap-2 group/link">
+                          Read Analysis
+                          <span className="group-hover/link:translate-x-1 transition-transform">→</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-gray-500 italic">No strategic intel has been published yet. Check back soon.</p>
                 </div>
-              ))}
+              )}
             </div>
 
             <div className="text-center mt-16">
