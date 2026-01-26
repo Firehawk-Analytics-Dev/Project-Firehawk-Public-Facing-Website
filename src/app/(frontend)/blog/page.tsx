@@ -9,12 +9,22 @@ export const metadata: Metadata = {
     description: 'Deep dives into market dynamics, behavioral analytics, and the engineering of defensible business models.',
 };
 
-export default async function BlogListingPage() {
+export default async function BlogListingPage({
+    searchParams,
+}: {
+    searchParams: Promise<{ page?: string }>;
+}) {
+    const { page } = await searchParams;
+    const currentPage = parseInt(page || '1');
+    const limit = 6;
+
     const payload = await getPayload({ config })
     const result = await payload.find({
         collection: 'blog',
         sort: '-publishedDate',
         depth: 1,
+        page: currentPage,
+        limit: limit,
     })
 
     const posts = result.docs as unknown as {
@@ -113,6 +123,36 @@ export default async function BlogListingPage() {
                             </div>
                         )}
                     </div>
+
+                    {/* Pagination Controls */}
+                    {result.totalPages > 1 && (
+                        <div className="mt-20 flex items-center justify-center gap-4">
+                            {result.hasPrevPage && (
+                                <Link
+                                    href={`/blog?page=${result.prevPage}`}
+                                    className="px-8 py-4 bg-white border-2 border-brand-blue text-brand-blue font-bold rounded-full hover:bg-brand-blue hover:text-white transition-all shadow-lg hover:shadow-brand-blue/20"
+                                >
+                                    ← Previous Intel
+                                </Link>
+                            )}
+                            <div className="flex items-center gap-2 px-6 py-3 bg-brand-neutral/20 rounded-full text-sm font-bold text-brand-blue">
+                                <span>PHASE</span>
+                                <span className="w-6 h-6 flex items-center justify-center bg-brand-blue text-white rounded-full text-[10px]">
+                                    {result.page}
+                                </span>
+                                <span className="text-gray-400">OF</span>
+                                <span>{result.totalPages}</span>
+                            </div>
+                            {result.hasNextPage && (
+                                <Link
+                                    href={`/blog?page=${result.nextPage}`}
+                                    className="px-8 py-4 bg-brand-blue text-white font-bold rounded-full hover:bg-brand-orange transition-all shadow-lg hover:shadow-brand-orange/20"
+                                >
+                                    Next Intel →
+                                </Link>
+                            )}
+                        </div>
+                    )}
                 </div>
             </main>
 
