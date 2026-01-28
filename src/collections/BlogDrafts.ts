@@ -23,6 +23,41 @@ export const BlogDrafts: CollectionConfig = {
             },
         },
         {
+            type: 'row',
+            fields: [
+                {
+                    name: 'targetAudience',
+                    type: 'text',
+                    admin: {
+                        placeholder: 'e.g., CTOs, Product Managers',
+                        width: '50%',
+                    },
+                },
+                {
+                    name: 'toneOfVoice',
+                    type: 'select',
+                    options: [
+                        { label: 'Professional & Authoritative', value: 'professional' },
+                        { label: 'Conversational & Engaging', value: 'conversational' },
+                        { label: 'Technical & Deep', value: 'technical' },
+                        { label: 'Visionary & Strategic', value: 'visionary' },
+                    ],
+                    defaultValue: 'professional',
+                    admin: {
+                        width: '50%',
+                    },
+                },
+            ],
+        },
+        {
+            name: 'seoKeywords',
+            type: 'text', // Simple comma-separated list for now, could be array
+            admin: {
+                placeholder: 'e.g., ai strategy, defensibility, competitive advantage',
+                description: 'Comma-separated keywords for SEO optimization.',
+            },
+        },
+        {
             name: 'sourceMaterials',
             type: 'array',
             required: true,
@@ -92,6 +127,9 @@ export const BlogDrafts: CollectionConfig = {
             type: 'richText',
             admin: {
                 description: 'The AI-generated structural plan for the blog.',
+                components: {
+                    Field: '@/components/admin/ai/ContentStrategist#ContentStrategist',
+                },
             },
         },
         {
@@ -99,6 +137,18 @@ export const BlogDrafts: CollectionConfig = {
             type: 'richText',
             admin: {
                 description: 'The final AI-generated copy, including citations.',
+                components: {
+                    Field: '@/components/admin/ai/DraftGenerator#DraftGenerator',
+                },
+            },
+        },
+        {
+            name: 'seoScorecard',
+            type: 'ui',
+            admin: {
+                components: {
+                    Field: '@/components/admin/seo/SeoScorecard#SeoScorecard',
+                },
             },
         },
         {

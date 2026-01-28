@@ -74,6 +74,28 @@ export const Newsletters: CollectionConfig = {
         },
     ],
     hooks: {
-        // We'll add a hook here later to trigger Resend email delivery
+        afterChange: [
+            async ({ doc, previousDoc, req }) => {
+                if (doc.status === 'sent' && previousDoc.status !== 'sent') {
+                    // Trigger email delivery via Resend
+                    try {
+                        await req.payload.sendEmail({
+                            to: 'subscribers@firehawkanalytics.com.au', // In a real app, fetch from a subscribers collection
+                            subject: doc.subject,
+                            html: doc.content, // Simplified for now, should use a template
+                        });
+                        await req.payload.update({
+                            collection: 'newsletters',
+                            id: doc.id,
+                            data: {
+                                sent: true,
+                            },
+                        });
+                    } catch (error) {
+                        req.payload.logger.error(`Failed to send newsletter: ${error}`);
+                    }
+                }
+            },
+        ],
     },
 }

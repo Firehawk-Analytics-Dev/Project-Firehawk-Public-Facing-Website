@@ -231,6 +231,14 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
+    avatar?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
   };
 }
 /**
@@ -513,6 +521,15 @@ export interface Newsletter {
    * Indicates if this newsletter has already been broadcast.
    */
   sent?: boolean | null;
+  status?: ('draft' | 'scheduled' | 'sent') | null;
+  /**
+   * The person responsible for this content.
+   */
+  author: string | User;
+  /**
+   * When this newsletter is set to go out.
+   */
+  scheduledDate?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -621,6 +638,11 @@ export interface SocialMedia {
    * Indicates if this post has been successfully shared.
    */
   posted?: boolean | null;
+  /**
+   * The person who created this post.
+   */
+  author: string | User;
+  status?: ('draft' | 'scheduled' | 'posted') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -849,6 +871,9 @@ export interface NewslettersSelect<T extends boolean = true> {
   subject?: T;
   content?: T;
   sent?: T;
+  status?: T;
+  author?: T;
+  scheduledDate?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -903,6 +928,8 @@ export interface SocialMediaSelect<T extends boolean = true> {
   image?: T;
   scheduledDate?: T;
   posted?: T;
+  author?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -961,6 +988,16 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
         og?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        avatar?:
           | T
           | {
               url?: T;

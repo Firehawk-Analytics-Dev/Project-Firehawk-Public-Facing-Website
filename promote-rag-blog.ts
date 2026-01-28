@@ -38,7 +38,7 @@ async function promoteDraft() {
     ]
 
     // 3. Create the Blog Post
-    // @ts-ignore
+    // @ts-expect-error
     const blogPost = await payload.create({
         collection: 'blog',
         data: {

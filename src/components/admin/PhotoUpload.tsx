@@ -169,11 +169,11 @@ export const PhotoUpload: React.FC<Props> = (props) => {
 
     return (
         <div className="field-type upload admin-field-group">
-            <div style={{ marginBottom: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            <div className="flex justify-between items-end mb-4">
                 <div>
                     <FieldLabel label={displayLabel} required={required} />
                     {description && (
-                        <div style={{ fontSize: '13px', color: 'var(--theme-text-tertiary)', marginTop: '4px' }}>
+                        <div className="text-sm text-gray-500 mt-1">
                             {typeof description === 'string' ? description : ''}
                         </div>
                     )}
@@ -181,18 +181,7 @@ export const PhotoUpload: React.FC<Props> = (props) => {
                 {previousValue !== null && (
                     <button
                         onClick={undo}
-                        style={{
-                            background: 'none',
-                            border: 'none',
-                            color: 'var(--theme-primary)',
-                            fontSize: '11px',
-                            fontWeight: '700',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            opacity: 0.8
-                        }}
+                        className="flex items-center gap-1 text-xs font-bold text-brand-blue opacity-80 hover:opacity-100 transition-opacity bg-transparent border-none cursor-pointer"
                     >
                         <RotateCcw size={12} /> UNDO (⌘Z)
                     </button>
@@ -227,44 +216,35 @@ export const PhotoUpload: React.FC<Props> = (props) => {
                 />
 
                 {preview ? (
-                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+                    <div className="w-full flex flex-col items-center gap-5">
                         <div className="admin-preview-box">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={preview} alt="Current Logo" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                            <img src={preview} alt="Current Logo" className="max-w-full max-h-full object-contain" />
                         </div>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                        <div className="flex flex-col items-center gap-2">
                             <div className="admin-status-badge success">
                                 <CheckCircle2 size={16} />
                                 <span>Syndicated to Supabase</span>
                             </div>
-                            {fileName && <span style={{ fontSize: '12px', color: 'var(--theme-text-tertiary)', fontWeight: '500' }}>{fileName}</span>}
+                            {fileName && <span className="text-xs text-gray-400 font-medium">{fileName}</span>}
                         </div>
 
-                        <div style={{ display: 'flex', gap: '12px' }}>
+                        <div className="flex gap-3">
                             <Button size="small" buttonStyle="secondary" onClick={(e) => { e.stopPropagation(); setPreviousValue(value); setValue(null); triggerAutosave(null); }} icon={<X size={14} />}>Reset</Button>
                             <Button size="small" buttonStyle="primary" onClick={(e) => { e.stopPropagation(); document.getElementById(`file-input-${path}`)?.click(); }} icon={<RefreshCw size={14} />}>Replace Image</Button>
                         </div>
                     </div>
                 ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-                        <div style={{
-                            width: '64px',
-                            height: '64px',
-                            borderRadius: '20px',
-                            background: error ? 'rgba(255, 0, 0, 0.1)' : 'var(--theme-elevation-150)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: error ? 'var(--theme-error)' : 'var(--theme-primary)',
-                        }}>
+                    <div className="flex flex-col items-center gap-4 pointer-events-none">
+                        <div className={`upload-icon-circle w-16 h-16 rounded-full flex items-center justify-center transition-all ${error ? 'bg-red-50 text-red-500' : 'bg-brand-blue/10 text-brand-blue'}`}>
                             {error ? <AlertCircle size={32} /> : <Upload size={32} />}
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                            <span style={{ fontSize: '15px', fontWeight: '800', color: error ? 'var(--theme-error)' : 'var(--theme-text)' }}>
+                        <div className="flex flex-col gap-1 text-center font-sans">
+                            <span className={`text-base font-extrabold tracking-tight ${error ? 'text-red-500' : 'text-gray-900 uppercase'}`}>
                                 {error ? 'SYNCHRONIZATION ERROR' : `UPLOAD ${displayLabel.toUpperCase()}`}
                             </span>
-                            <span style={{ fontSize: '12px', color: 'var(--theme-text-tertiary)' }}>
+                            <span className="text-sm text-gray-500">
                                 {error ? error : 'Drag & drop or click to connect asset'}
                             </span>
                         </div>

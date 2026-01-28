@@ -30,6 +30,9 @@ import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 }
 import { GenerateBlogContent as GenerateBlogContent_ce94d6dfd531ef2dcc5525c8fc50e1d3 } from '@/components/admin/GenerateBlogContent'
 import { GenerateImage as GenerateImage_66fd90ebaa48cfc34045445429fca89a } from '@/components/admin/GenerateImage'
 import { PromoteDraft as PromoteDraft_d59077850140accffc5fea033deb154b } from '@/components/admin/PromoteDraft'
+import { ContentStrategist as ContentStrategist_f2fe9dd6bfe999e7685951fba81101e4 } from '@/components/admin/ai/ContentStrategist'
+import { DraftGenerator as DraftGenerator_16928da0d5b23aab7bd10b30265170d4 } from '@/components/admin/ai/DraftGenerator'
+import { SeoScorecard as SeoScorecard_f7cc3c690df48fb31fac735cbdf3d541 } from '@/components/admin/seo/SeoScorecard'
 import { PhotoUpload as PhotoUpload_ad2c26b17e583894889fe8763b1bb3b1 } from '@/components/admin/PhotoUpload'
 import { ColorPicker as ColorPicker_818c03bd2d1805855e4e5373b5a37a82 } from '@/components/admin/ColorPicker'
 import { AdminHeader as AdminHeader_f181246c415374f159403340cdc5b615 } from '../../../components/admin/AdminHeader'
@@ -72,6 +75,9 @@ export const importMap = {
   "@/components/admin/GenerateBlogContent#GenerateBlogContent": GenerateBlogContent_ce94d6dfd531ef2dcc5525c8fc50e1d3,
   "@/components/admin/GenerateImage#GenerateImage": GenerateImage_66fd90ebaa48cfc34045445429fca89a,
   "@/components/admin/PromoteDraft#PromoteDraft": PromoteDraft_d59077850140accffc5fea033deb154b,
+  "@/components/admin/ai/ContentStrategist#ContentStrategist": ContentStrategist_f2fe9dd6bfe999e7685951fba81101e4,
+  "@/components/admin/ai/DraftGenerator#DraftGenerator": DraftGenerator_16928da0d5b23aab7bd10b30265170d4,
+  "@/components/admin/seo/SeoScorecard#SeoScorecard": SeoScorecard_f7cc3c690df48fb31fac735cbdf3d541,
   "@/components/admin/PhotoUpload#PhotoUpload": PhotoUpload_ad2c26b17e583894889fe8763b1bb3b1,
   "@/components/admin/ColorPicker#ColorPicker": ColorPicker_818c03bd2d1805855e4e5373b5a37a82,
   "/components/admin/AdminHeader#AdminHeader": AdminHeader_f181246c415374f159403340cdc5b615,

@@ -36,3 +36,81 @@ body {
   color: var(--foreground);
   font-family: var(--font-outfit), var(--font-inter), sans-serif;
 }
+
+/* Premium Admin UI Utilities */
+.admin-field-group {
+  margin-bottom: 2rem;
+}
+
+.admin-component-card {
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--brand-neutral);
+  background: var(--background);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+}
+
+.admin-component-card:hover {
+  border-color: var(--brand-blue);
+  box-shadow: 0 10px 25px -5px rgba(63, 32, 185, 0.05);
+}
+
+.admin-component-card.dragging {
+  border: 2px dashed var(--brand-blue);
+  background: rgba(63, 32, 185, 0.02);
+  transform: scale(1.01);
+}
+
+.admin-component-card.success {
+  border-color: #10b981;
+}
+
+.admin-component-card.error {
+  border-color: #ef4444;
+}
+
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-status-badge.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.admin-preview-box {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  background: var(--brand-neutral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.upload-icon-circle {
+  transition: transform 0.2s ease;
+}
+
+.admin-component-card:hover .upload-icon-circle {
+  transform: translateY(-4px);
+}
