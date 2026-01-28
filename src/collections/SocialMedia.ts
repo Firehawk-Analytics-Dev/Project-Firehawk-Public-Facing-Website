@@ -5,7 +5,7 @@ export const SocialMedia: CollectionConfig = {
     admin: {
         useAsTitle: 'platform',
         defaultColumns: ['platform', 'scheduledDate', 'posted'],
-        group: 'Marketing',
+        group: 'Marketing Hub',
     },
     labels: {
         singular: 'Social Post',
@@ -65,6 +65,29 @@ export const SocialMedia: CollectionConfig = {
                     },
                 },
             ],
+        },
+        {
+            name: 'author',
+            type: 'relationship',
+            relationTo: 'users',
+            required: true,
+            admin: {
+                position: 'sidebar',
+                description: 'The person who created this post.',
+            },
+        },
+        {
+            name: 'status',
+            type: 'select',
+            defaultValue: 'draft',
+            options: [
+                { label: 'Draft', value: 'draft' },
+                { label: 'Scheduled', value: 'scheduled' },
+                { label: 'Posted', value: 'posted' },
+            ],
+            admin: {
+                position: 'sidebar',
+            },
         },
     ],
 }

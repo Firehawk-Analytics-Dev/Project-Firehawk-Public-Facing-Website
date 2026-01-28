@@ -5,7 +5,7 @@ export const Users: CollectionConfig = {
     auth: true,
     admin: {
         useAsTitle: 'name',
-        group: 'Admin',
+        group: 'Administration',
         defaultColumns: ['name', 'email'],
     },
     labels: {
@@ -22,7 +22,8 @@ export const Users: CollectionConfig = {
                             id: data.avatar,
                         })
                         if (media) {
-                            const avatarUrl = media.sizes?.avatar?.url || media.url
+                            const sizes = media.sizes as Record<string, { url?: string | null }> | undefined
+                            const avatarUrl = sizes?.avatar?.url || media.url
                             if (avatarUrl) {
                                 data.image = avatarUrl
                             }

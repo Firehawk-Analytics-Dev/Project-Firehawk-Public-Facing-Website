@@ -4,7 +4,7 @@ export const Services: CollectionConfig = {
     slug: 'services',
     admin: {
         useAsTitle: 'title',
-        group: 'Marketing',
+        group: 'Marketing Hub',
     },
     labels: {
         singular: 'Service',

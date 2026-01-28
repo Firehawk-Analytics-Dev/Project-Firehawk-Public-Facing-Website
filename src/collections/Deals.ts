@@ -5,7 +5,7 @@ export const Deals: CollectionConfig = {
     admin: {
         useAsTitle: 'dealName',
         defaultColumns: ['dealName', 'associatedWith', 'stage', 'value', 'expectedCloseDate'],
-        group: 'CRM',
+        group: 'CRM & Sales',
     },
     labels: {
         singular: 'Deal',

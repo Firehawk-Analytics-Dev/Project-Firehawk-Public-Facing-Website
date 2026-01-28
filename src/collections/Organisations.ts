@@ -5,7 +5,7 @@ export const Organisations: CollectionConfig = {
     admin: {
         useAsTitle: 'name',
         defaultColumns: ['name', 'industry', 'website', 'createdAt'],
-        group: 'CRM',
+        group: 'CRM & Sales',
     },
     labels: {
         singular: 'Organisation',

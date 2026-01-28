@@ -11,18 +11,29 @@
   /* Brand Colors */
   --brand-blue: #3F20B9;
   --brand-orange: #EC5934;
+  --brand-orange-infographic: #FA7958;
   --brand-purple: #AF92FF;
   --brand-light-blue: #B1C8FF;
+  --brand-mid-blue: #3776EC;
+  --brand-peach: #FFB1A0;
   --brand-neutral: #EDEDED;
 
-  /* Primary Theme Colors */
-  --theme-primary: #3F20B9;
-  --theme-primary-hover: #331A96;
-  --theme-primary-light: #5B3DD9;
+  /* Infographic Colors */
+  --brand-magenta: #B22873;
+  --brand-pink: #FF5BAA;
+  --brand-yellow: #FFCF4B;
+  --brand-lime: #58B848;
+  --brand-dark-green: #00664C;
+  --brand-mint: #84D8C9;
 
-  --theme-accent: #EC5934;
+  /* Primary Theme Colors */
+  --theme-primary: var(--brand-blue);
+  --theme-primary-hover: #331A96;
+  --theme-primary-light: var(--brand-purple);
+
+  --theme-accent: var(--brand-orange);
   --theme-accent-hover: #D94A28;
-  --theme-accent-light: #FF7A54;
+  --theme-accent-light: var(--brand-peach);
 
   /* Background System */
   --theme-bg: #FAFBFC;
@@ -430,6 +441,48 @@ label {
   font-size: 0.875rem;
 }
 
+/* Fix for Relationship Field 'Square Frame' Bug */
+.relationship__value,
+.relationship-input__value {
+  background: transparent !important;
+  border: none !important;
+}
+
+.relationship__value .thumbnail,
+.relationship-input__value .thumbnail,
+.rs__value-container .thumbnail {
+  border-radius: var(--radius-sm) !important;
+  border-color: var(--theme-elevation-200) !important;
+  background: var(--theme-elevation-50) !important;
+}
+
+/* Hide empty thumbnails across all relationship types */
+.relationship__value:not(.has-value) .thumbnail,
+.relationship--no-value .thumbnail,
+.rs__placeholder+.thumbnail,
+.thumbnail:empty {
+  display: none !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+}
+
+/* Style selected items in relationship fields */
+.relationship-input .rs__control,
+.field-type.relationship .rs__control {
+  border: 2px solid var(--theme-elevation-200) !important;
+  border-radius: var(--radius-md) !important;
+  min-height: 48px !important;
+  background: white !important;
+}
+
+.relationship-input .rs__multi-value {
+  background: var(--brand-neutral) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--brand-blue) !important;
+}
+
 /* ============================================
    8. TABLES & LISTS
    ============================================ */
@@ -806,6 +859,7 @@ td {
   background: var(--theme-elevation-200);
   margin: var(--space-2) 0;
 }
+
 .avatar-trigger {
   display: flex !important;
   align-items: center !important;
@@ -858,4 +912,73 @@ td {
 
 .dropdown-arrow.open {
   transform: rotate(180deg) !important;
+}
+
+/* ============================================
+   17. ADMIN UTILITY CLASSES
+   ============================================ */
+
+.admin-field-group {
+  margin-bottom: var(--space-12) !important;
+}
+
+.admin-component-card {
+  background: var(--theme-elevation-50);
+  border: 2px dashed var(--theme-elevation-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  cursor: pointer;
+  position: relative;
+}
+
+.admin-component-card:hover {
+  background: var(--theme-elevation-100);
+  border-color: var(--theme-primary);
+}
+
+.admin-component-card.success {
+  border-style: solid;
+  border-color: var(--theme-success);
+  background: rgba(0, 255, 0, 0.01);
+  box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.05);
+}
+
+.admin-component-card.error {
+  border-style: solid;
+  border-color: var(--theme-error);
+  background: rgba(255, 0, 0, 0.02);
+}
+
+.admin-preview-box {
+  width: 400px;
+  max-width: 100%;
+  height: 140px;
+  background: white;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--theme-elevation-150);
+}
+
+.admin-status-badge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 900;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.admin-status-badge.success {
+  color: var(--theme-success);
 }

@@ -4,6 +4,7 @@ export const Newsletters: CollectionConfig = {
     slug: 'newsletters',
     admin: {
         useAsTitle: 'subject',
+        group: 'Marketing Hub',
     },
     labels: {
         singular: 'Newsletter',
@@ -33,7 +34,42 @@ export const Newsletters: CollectionConfig = {
             defaultValue: false,
             admin: {
                 readOnly: true,
+                position: 'sidebar',
                 description: 'Indicates if this newsletter has already been broadcast.',
+            },
+        },
+        {
+            name: 'status',
+            type: 'select',
+            defaultValue: 'draft',
+            options: [
+                { label: 'Draft', value: 'draft' },
+                { label: 'Scheduled', value: 'scheduled' },
+                { label: 'Sent', value: 'sent' },
+            ],
+            admin: {
+                position: 'sidebar',
+            },
+        },
+        {
+            name: 'author',
+            type: 'relationship',
+            relationTo: 'users',
+            required: true,
+            admin: {
+                position: 'sidebar',
+                description: 'The person responsible for this content.',
+            },
+        },
+        {
+            name: 'scheduledDate',
+            type: 'date',
+            admin: {
+                position: 'sidebar',
+                description: 'When this newsletter is set to go out.',
+                date: {
+                    pickerAppearance: 'dayAndTime',
+                },
             },
         },
     ],

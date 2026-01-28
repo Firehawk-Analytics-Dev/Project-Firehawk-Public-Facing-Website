@@ -5,7 +5,7 @@ export const Leads: CollectionConfig = {
     admin: {
         useAsTitle: 'lastName',
         defaultColumns: ['firstName', 'lastName', 'email', 'status', 'createdAt'],
-        group: 'CRM',
+        group: 'CRM & Sales',
     },
     labels: {
         singular: 'Lead',

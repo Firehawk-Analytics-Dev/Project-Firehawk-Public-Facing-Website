@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+// Force build refresh for admin UI v2
+import { lexicalEditor, UploadFeature } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -11,15 +12,16 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Services } from './collections/Services'
 import { Blog } from './collections/Blog'
+import { BlogDrafts } from './collections/BlogDrafts'
 import { Newsletters } from './collections/Newsletters'
 import { Leads } from './collections/Leads'
 import { Organisations } from './collections/Organisations'
 import { Deals } from './collections/Deals'
 import { SocialMedia } from './collections/SocialMedia'
+import { Media } from './collections/Media'
+import { Branding } from './globals/Branding'
 import { authjsPlugin } from 'payload-authjs'
 import { authConfig } from './auth.config'
-// Unused icon imports removed to fix linting errors
-
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -36,6 +38,10 @@ export default buildConfig({
                     path: '/components/admin/AdminHeader#AdminHeader',
                 },
             ],
+            graphics: {
+                Icon: '/components/admin/Graphics#Icon',
+                Logo: '/components/admin/Graphics#Logo',
+            },
         },
         meta: {
             titleSuffix: '- Firehawk Analytics',
@@ -49,47 +55,35 @@ export default buildConfig({
         Users,
         Services,
         Blog,
+        BlogDrafts,
         Newsletters,
         Organisations,
         Leads,
         Deals,
         SocialMedia,
-        {
-            slug: 'media',
-            upload: {
-                imageSizes: [
-                    {
-                        name: 'avatar',
-                        width: 200,
-                        height: 200,
-                        position: 'centre',
-                    },
-                    {
-                        name: 'thumbnail',
-                        width: 50,
-                        height: 50,
-                        position: 'centre',
-                    },
-                ],
-                adminThumbnail: 'thumbnail',
-            },
-            admin: {
-                group: 'Content',
-            },
-            fields: [
-                {
-                    name: 'alt',
-                    type: 'text',
-                    required: true,
-                    admin: {
-                        description: 'A descriptive alt text for accessibility and SEO.',
-                        placeholder: 'e.g., Firehawk Analytics Team Meeting',
+        Media,
+    ],
+    globals: [
+        Branding,
+    ],
+    editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+            ...defaultFeatures,
+            UploadFeature({
+                collections: {
+                    media: {
+                        fields: [
+                            {
+                                name: 'caption',
+                                type: 'richText',
+                                editor: lexicalEditor(),
+                            },
+                        ],
                     },
                 },
-            ],
-        },
-    ],
-    editor: lexicalEditor({}),
+            }),
+        ],
+    }),
     secret: process.env.PAYLOAD_SECRET || '',
     typescript: {
         outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -124,11 +118,12 @@ export default buildConfig({
             uploadsCollection: 'media',
             generateTitle: ({ doc }) => {
                 const title = doc?.title?.value || doc?.title || ''
-                return `Firehawk Analytics — ${title}`
+                const prefix = 'Firehawk Analytics — '
+                const fullTitle = `${prefix}${title}`
+                return fullTitle.length > 60 ? `${fullTitle.substring(0, 57)}...` : fullTitle
             },
             generateDescription: ({ doc }) => {
-                const desc = doc?.description?.value || doc?.description || ''
-                return desc
+                return doc?.description?.value || doc?.description || ''
             },
         }),
     ],
